@@ -8,7 +8,7 @@ import os
 
 slim = tf.contrib.slim
 
-
+#Gram矩阵
 def gram(layer):
     shape = tf.shape(layer)
     num_images = shape[0]
@@ -17,7 +17,6 @@ def gram(layer):
     num_filters = shape[3]
     filters = tf.reshape(layer, tf.stack([num_images, -1, num_filters]))
     grams = tf.matmul(filters, filters, transpose_a=True) / tf.to_float(width * height * num_filters)
-
     return grams
 
 
@@ -34,7 +33,8 @@ def get_style_features(FLAGS):
             is_training=False)
         image_preprocessing_fn, image_unprocessing_fn = preprocessing_factory.get_preprocessing(
             FLAGS.loss_model,
-            is_training=False)
+            is_training=False) #這裏通過配置去獲取預處理函數，與其逆函數。
+
 
         # Get the style image data
         size = FLAGS.image_size
@@ -49,7 +49,7 @@ def get_style_features(FLAGS):
         images = tf.expand_dims(image_preprocessing_fn(image, size, size), 0)
         # images = tf.stack([image_preprocessing_fn(image, size, size)])
 
-        _, endpoints_dict = network_fn(images, spatial_squeeze=False)
+        _, endpoints_dict = network_fn(images, spatial_squeeze=False)#下划线表示接受一些不需要使用的占位符。
         features = []
         for layer in FLAGS.style_layers:
             feature = endpoints_dict[layer]

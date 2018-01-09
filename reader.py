@@ -14,9 +14,7 @@ def image(batch_size, height, width, path, preprocess_fn, epochs=2, shuffle=True
     filenames = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
     if not shuffle:
         filenames = sorted(filenames)
-
     png = filenames[0].lower().endswith('png')  # If first file is a png, assume they all are
-
     filename_queue = tf.train.string_input_producer(filenames, shuffle=shuffle, num_epochs=epochs)
     reader = tf.WholeFileReader()
     _, img_bytes = reader.read(filename_queue)

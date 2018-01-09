@@ -15,7 +15,6 @@ def conv2d_transpose(x, input_filters, output_filters, kernel, strides):
 
         shape = [kernel, kernel, output_filters, input_filters]
         weight = tf.Variable(tf.truncated_normal(shape, stddev=0.1), name='weight')
-
         batch_size = tf.shape(x)[0]
         height = tf.shape(x)[1] * strides
         width = tf.shape(x)[2] * strides
