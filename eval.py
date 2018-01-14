@@ -6,7 +6,7 @@ import reader
 import model
 import time
 import os
-
+#tensorflow傳入參數定義
 tf.app.flags.DEFINE_string('loss_model', 'vgg_16', 'The name of the architecture to evaluate. '
                            'You can view all the support models in nets/nets_factory.py')
 tf.app.flags.DEFINE_integer('image_size', 256, 'Image size to train.')
