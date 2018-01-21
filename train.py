@@ -110,6 +110,7 @@ def main(FLAGS):
                 saver.restore(sess, last_file)
 
             """Start Training"""
+            #coord是多线程管理器，具体内容可以查看文章：http://blog.csdn.net/sunquan_ok/article/details/51832442
             coord = tf.train.Coordinator()
             threads = tf.train.start_queue_runners(coord=coord)
             start_time = time.time()

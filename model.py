@@ -47,7 +47,8 @@ def resize_conv2d(x, input_filters, output_filters, kernel, strides, training):
 
 def instance_norm(x):
     epsilon = 1e-9
-
+    #批標準化 batch normalization，BN
+    #计算统计矩，mean 是一阶矩即均值，var 则是二阶中心矩即方差，axes=[0]表示按列计算；
     mean, var = tf.nn.moments(x, [1, 2], keep_dims=True)
 
     return tf.div(tf.subtract(x, mean), tf.sqrt(tf.add(var, epsilon)))
@@ -73,7 +74,7 @@ def batch_norm(x, size, training, decay=0.999):
 
     return tf.cond(training, batch_statistics, population_statistics)
 
-
+#簡單封裝了一下激活函數函數。
 def relu(input):
     relu = tf.nn.relu(input)
     # convert nan to zero (nan != nan)
